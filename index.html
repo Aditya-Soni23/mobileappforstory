@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A story written by Aditya Soni</title>
+    <link rel="icon" href="advertisement.jpg" type="image/icon type">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('advertisement.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Desktop styles */
+        @media (min-width: 1024px) {
+            .container {
+                margin-bottom: 500px;
+                margin-left: 900px;
+            }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 1023px) {
+            .container {
+                width: 90%;
+                margin: 0;
+                transform: translateY(-20%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-bottom:400px;" class="container">
+        <h1>Select Your Language</h1>
+        <button onclick="window.location.href='hindi.html'">Hindi</button>
+        <button onclick="window.location.href='english.html'">English</button>
+    </div>
+</body>
+</html>

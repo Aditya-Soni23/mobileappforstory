@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="turn.min.js"></script>
+<title>A story Written By Aditya Soni</title>
+<link rel="icon" href="advertisement.jpg" type="image/icon type">
+
+
+<style type="text/css">
+body {
+	background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	margin: 0;
+	color: #333;
+	font-family: 'Arial', sans-serif;
+}
+
+#book {
+	width: 800px;
+	height: 500px;
+	position: relative;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#book .turn-page {
+	background-color: white;
+}
+
+#book .cover {
+	background-image: url(war.png);
+	color: white;
+}
+
+#book .cover h1 {
+	text-align: center;
+	font-size: 50px;
+	margin: 0;
+	padding-top: 100px;
+}
+
+#book .cover p {
+	text-align: center;
+	font-size: 20px;
+	margin: 0;
+	padding-top: 20px;
+}
+
+#book .loader {
+	background-image: url(loader.gif);
+	width: 24px;
+	height: 24px;
+	display: block;
+	position: absolute;
+	top: 238px;
+	left: 188px;
+}
+
+#book .data {
+	text-align: center;
+	font-size: 24px;
+	color: #333;
+	line-height: 1.6;
+	padding: 20px;
+}
+
+.page-footer {
+	position: absolute;
+	bottom: 10px;
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	color: #333;
+}
+
+#controls {
+	width: 800px;
+	text-align: center;
+	margin: 20px 0px;
+	font: 30px 'Arial', sans-serif;
+}
+
+#controls input, #controls label {
+	font: 30px 'Arial', sans-serif;
+}
+
+#book .odd {
+	background-image: linear-gradient(to left, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+#book .even {
+	background-image: linear-gradient(to left, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+#prev-button, #next-button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+	font-size: 24px;
+	z-index: 1000;
+}
+
+#prev-button {
+	left: -40px;
+}
+
+#next-button {
+	right: -40px;
+}
+
+#prev-button:hover, #next-button:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+footer {
+	margin-top: 20px;
+	font-size: 18px;
+	color: #555;
+}
+</style>
+</head>
+<body>
+<center>
+<div id="book">
+	<div class="cover">
+		<h1 style="color: red;">कर्णस्थान का पुनर्जन्म</h1>
+		<br><br><br>
+		<h4 style="color: lime;">एक युद्ध के बाद एक नगर के पुनर्निर्माण की कहानी</h4><br><br><br>
+		<p>लेखक - आदित्य सोनी</p>
+	</div>
+</div>
+
+<div id="controls">
+    <label for="page-number">Page:</label>
+    <input style="background-color: yellow;" type="text" size="3" id="page-number">
+    of <span id="number-pages"></span>
+    <button style="background-color: white; color: black; font-weight: bolder; border-radius: 30px; height: 50px; width: 150px;" id="read-button">Read the Text<br><img style="width: 20px; height: 20px;" src="audio.png"></button>
+</div>
+
+
+<button style="margin-left: 200px;" id="prev-button">&#8592;</button>
+<button style="margin-right: 200px;" id="next-button">&#8594;</button>
+
+<footer style="color: black; font-weight: bolder; width: 1500px; height: 20px; background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(119,121,9,1) 0%, rgba(5,160,44,1) 0%, rgba(136,7,142,1) 0%, rgba(0,212,255,1) 100%);">
+	कर्णस्थान का पुनर्जन्म, लेखक - आदित्य सोनी
+</footer>
+
+</center>
+
+<audio  id="turn-front-sound" src="turnfront.mp3"></audio>
+<audio id="turn-back-sound" src="turnback.mp3"></audio>
+
+<script type="text/javascript">
+
+	var numberOfPages = 36; 
+
+	var storyContent = [
+		"",
+		"एक समय की बात है, दो राजा थे, साक्षम प्रताप और लालाजी प्रसाद, जो अपने-अपने राज्य, अति रूपा और ताजस्थान, का शासन करते थे। उनका संबंध भाइयों जैसा मजबूत था, जिसे भाईचारे और सद्भावना से चिह्नित किया गया था। वे त्योहारों को एक साथ मनाते थे, कठिन समय में संसाधनों को साझा करते थे, और उनके नागरिक प्रशंसा करते थे ",
+		"उनके बीच गहरी मित्रता।<img style='height: 250px; width: 350px;' src='kingomstart.jpg'/>अति रूपा और ताजस्थान",
+		"एक दिन, साक्षम प्रताप ने अति रूपा में एक प्रतियोगिता की घोषणा की: जो व्यक्ति सबसे बड़ा कारनामा करेगा, कुछ ऐसा जो साक्षम भी नहीं कर सके, वह उनके सेवानिवृत्ति के बाद राजा बनेगा। अति रूपा का मंत्री, एक लालची और महत्वाकांक्षी व्यक्ति जिसका नाम भैरव था, सिंहासन की लालसा रखता था। अवसर का फायदा उठाकर,",
+		"वह लालाजी प्रसाद के महल में मित्रवत संबंधों के बहाने से गया। गर्मजोशी से स्वागत करते हुए, भैरव को तोपखाने के कमरे में प्रवेश मिला। इसका फायदा उठाते हुए, उसने महत्वपूर्ण युद्ध रणनीति के कागजात चुरा लिए और अति रूपा लौट आया। इस जानकारी से लैस, भैरव ने ताजस्थान पर एक आश्चर्यजनक रात के हमले का नेतृत्व किया।",
+		"<img style='height: 250px; width: 350px;' src='warpapers.jpg'/><h7>भैरव ने महत्वपूर्ण युद्ध कागजात चुरा लिए...<h7><img style='height: 60px; width: 350px;' src='attack.jpg'/>रात का हमला!",
+		"अगली सुबह, अखबारों में हेडलाइन चमक रही थी: अति रूपा ने ताजस्थान को हराया, लालाजी प्रसाद कैद। साक्षम प्रताप खबर पढ़कर क्रोधित हो गए और अपने मंत्री से सामना किया। तुमने ऐसा क्यों किया? उन्होंने गुस्से में पूछा। महामहिम, मैंने यह कारनामे के लिए किया है,",
+		"भैरव ने चालाक मुस्कान के साथ उत्तर दिया, प्रशंसा की उम्मीद करते हुए। तुमने हमारे संबंधों को नष्ट कर दिया और हमारी इज्जत पर धब्बा लगा दिया, साक्षम ने प्रतिउत्तर दिया। गुस्से में, उन्होंने मंत्री को फांसी दी, अपनी तलवार से उसका सिर काट दिया। यह कृत्य तेजी से हुआ, लेकिन इसके परिणाम दूरगामी थे। हालांकि, लालाजी प्रसाद, मंत्री की चालाकी से अनजान, विश्वास करते थे कि साक्षम ने",
+		"हमले का आदेश दिया था। इस प्रकार, दोनों राज्यों के बीच एक क्रूर युद्ध छिड़ गया। युद्ध निर्दयता से लड़ा गया, और दोनों पक्षों को भारी नुकसान हुआ।<img style='height: 250px; width: 350px;' src='news.jpg'/>",
+		"<img style='height: 250px; width: 350px;' src='headcut.jpg'/>साक्षम प्रताप द्वारा भैरव को मौत के घाट उतारते हुए.......<img style='height: 70px; width: 350px;' src='cutoff.jpg'/>",
+		"हजारों मारे गए, शहर बर्बाद हो गए, और इमारतें मलबे में तब्दील हो गईं। फिर भी, दोनों राजाओं के महल अविनाशी बने रहे, उनके चारों ओर की बर्बादी के मौन गवाह।<img style='height: 220px; width: 350px;' src='kingdomintact.jpg'/>",
+		"कई हताहतों में भैरव का छोटा भाई, अर्जुन, भी था, जो संघर्ष के शुरू होने पर केवल सात साल का था। बदले की भावना से ग्रसित, वह ताजस्थान में फंस गया, युद्ध के दौरान एक बंकर में बिना पहचाने रह रहा था। अर्जुन का जीवन बंकर में अलगाव और नियमितता से भरा था। बंकर एक ठंडा, संकीर्ण",
+		"स्थान था, जिसकी दीवारें डिब्बाबंद खाद्य पदार्थों और पानी की जगों से भरी हुई थीं। वह अपना समय किताबें पढ़ने में बिताता था, अक्सर उन्हीं किताबों को दोबारा पढ़ता था समय बिताने के लिए। रातें युद्ध की दूर से आने वाली आवाजों से भरी होती थीं, आसपास के धमाकों से कभी-कभी जमीन हिलती थी। उसने साधारण भोजन पकाना सीखा, अपने भोजन को सावधानी से विभाजित किया",
+		"ताकि वह लंबे समय तक चले। अकेलापन अत्यधिक था, और वह अक्सर अपनी हाथ से बनाई हुई मुलायम खिलौना, महाभारत के कर्ण की प्रतिमा से बात करता था, सांत्वना के लिए।<img style='height: 250px; width: 350px;' src='bunker.jpg'/>",
+		"एक दिन, एक पुराने कैबिनेट की खोज करते समय, अर्जुन को एक पुरानी, धूल भरी डायरी मिली। डायरी, एक पूर्व सैन्य अधिकारी द्वारा लिखी गई, में अति रूपा के मिसाइलों के कोड शब्द थे। बदले की ज्वलंत इच्छा से प्रेरित होकर, अर्जुन ने अति रूपा की सेना को एक नकली फोन कॉल किया: डकोटा d620 पर टी-36 60°, पूर्व। सेना प्रमुख बोल रहा हूँ, खत्म और बाहर।",
+		"शत्रु मिसाइल के प्रक्षेपण की गलतफहमी में, अति रूपा की सेना ने ताजस्थान के महल को निशाना बनाकर जवाबी कार्रवाई की। संघर्ष मिसाइल युद्ध में बदल गया, जिससे व्यापक विकिरण और तबाही हुई। जिनके पास बंकर तक पहुंच नहीं थी, वे या तो मिसाइल विस्फोटों या विकिरण से मर गए। एक साल तक, अर्जुन अपने बंकर में जीवित रहा,",
+		"उसका मन बदले और अपराधबोध की कड़ाही था। उसने अपने दैनिक अवलोकनों को ध्यानपूर्वक रिकॉर्ड किया, बदलते मौसम के पैटर्न और विकिरण स्तरों को नोट किया।<img style='height: 250px; width: 350px;' src='missile.jpg'/>",
+		"उसके प्रयोग उसकी राहत बन गए, क्योंकि उसने सीमित संसाधनों के माध्यम से बाहरी दुनिया को समझने की कोशिश की। उसने कृत्रिम प्रकाश का उपयोग करके छोटे गमलों में पौधे उगाए, हवा को शुद्ध करने का तरीका खोजने की आशा में।<h1>अर्जुन का",
+		"<img style='height: 250px; width: 350px;' src='vent.jpg'/><h1>बंकर",
+		"अंततः, पास के लोकतांत्रिक शहर एरोसिटी के मंत्री, बुद्धिमान और दयालु नेता, अनन्या के नेतृत्व में, तबाह हुए राज्यों की सहायता के लिए आए। उन्होंने घरों का पुनर्निर्माण किया, बंकर में बचे लोगों की मदद की, और दोनों राज्यों का आधा हिस्सा पुनर्स्थापित किया। इस प्रगति से अनजान, अर्जुन छिपा रहा, अब भी विकिरण से डरता था। सात साल बाद, अब पंद्रह साल का,",
+		"अर्जुन अपने अस्थायी प्रयोगशाला में अपने प्रयोग जारी रखे। एक दिन, एक ऑक्सीजन वेंट को साफ करते समय, उसने गलती से अपनी हाथ से बनाई हुई मुलायम खिलौना—महाभारत के कर्ण की एक आकृति—बाहर फेंक दिया। तीन महीने बाद, अपने खिलौने की लालसा में, वह बंकर से बाहर निकला। उसकी आश्चर्य की बात यह थी कि भूमि चमकदार",
+        " और हरी-भरी थी। हरियाली और पक्षियों के गीतों की आवाज ने उसे एक आशा से भर दिया जिसे उसने वर्षों में महसूस नहीं किया था। एक सुनहरे पत्तों वाला पेड़, सुनहरे सेब जैसे फलों के साथ नज़दीक खड़ा था। भूख से व्याकुल,",
+		"अर्जुन ने फलों को खाया और कुछ प्रयोग के लिए वापस ले आया। उसने पाया कि उसका मुलायम खिलौना विघटित हो गया था और पेड़ में बदल गया था।<img style='height: 250px; width: 350px;' src='goldentree.jpg'/>",
+		"फलों का सेवन करने से उसे अलौकिक शक्तियां प्राप्त हो गईं: उसके शरीर पर एक सुनहरा कवच प्रकट हुआ, और उसके हाथों में एक धनुष और बाण आ गए। अर्जुन ने पुनर्निर्मित शहरों का पता लगाया, यह देखते हुए कि अन्य लोग भी इसी प्रकार की शक्तियों का उपयोग कर रहे थे। हालांकि, ये लोग अपनी क्षमताओं का दुरुपयोग कर रहे थे, चोरी कर रहे थे और अराजकता फैला रहे थे। राज्य फिर से बिगड़ने लगे,",
+		"प्लास्टिक के कचरे और कूड़े के ढेर के साथ। लोगों ने ये शक्तियां आसानी से प्राप्त कर लीं, वे इनके उपयोग में लापरवाह हो गए और अपनी जिम्मेदारियों को नजरअंदाज कर दिया। अपनी गलती को समझते हुए, अर्जुन ने स्थिति को सुधारने का निर्णय लिया। उसने एक अफवाह फैलाई: कर्ण की शक्तियां प्राप्त करने वाले लोगों की आयु 20 साल घट गई है।",
+		"हालांकि, एक प्लास्टिक की बोतल को कैम्ब्रिज होल, एक गहरी खदान गड्ढे में फेंकने से उनकी आयु एक महीने बढ़ जाएगी। घबराए हुए, लोगों ने अपनी शक्तियों का उपयोग करके प्लास्टिक इकट्ठा किया और गड्ढे में फेंकना शुरू कर दिया।<h1>6 किमी गहरा</h1>",
+		"<img style='height: 250px; width: 350px;' src='cambridge.jpg'/><h1>कैम्ब्रिज होल</h1>",
+		"पुनर्निर्माण की प्रक्रिया कठिन थी। अर्जुन ने टीमों का आयोजन किया ताकि वे सड़कों को साफ करें, घरों की मरम्मत करें, और व्यवस्था बहाल करें। लोग, पहले डर से प्रेरित, जल्द ही उद्देश्य और समुदाय की भावना पाने लगे। उन्होंने कुशल पुनर्चक्रण विधियों का विकास किया और प्लास्टिक कचरे का उपयोग करने के नए तरीके खोजने के लिए कार्यशालाओं का निर्माण किया। धीरे-धीरे, गड्ढा प्लास्टिक से भर गया,",
+		"और राज्य साफ हो गए। लोगों ने अपनी शक्तियों का सदुपयोग करना शुरू कर दिया, एकता और मजबूती के साथ शहरों का पुनर्निर्माण किया। यह प्रक्रिया आसान नहीं थी; इसमें सहयोग और कड़ी मेहनत की जरूरत थी। लेकिन जैसे ही उन्होंने अपने प्रयासों के फल देखे, उनमें गर्व और जिम्मेदारी की भावना बढ़ी। शांति लौट आई, और जब लोग ध्यान करने लगे,",
+		"उनकी शक्तियां उनके शरीर से बाहर निकल गईं, जिससे उनके आत्माओं में आंतरिक शांति आई। शक्तियां बादलों में संघनित हो गईं, उनके सामूहिक बल और बुद्धि का प्रतीक।<img style='height: 250px; width: 350px;' src='cloud.jpg'/>",
+		"दोनों राज्यों का विलय हो गया, एक नई भूमि का निर्माण हुआ जिसका नाम कर्णस्थान था। राज्यों का विलय केवल एक राजनीतिक संघ नहीं था बल्कि एक सांस्कृतिक भी था।<img style='height: 250px; width: 350px;' src='merge.jpg'/>",
+		"त्योहारों को नए जोश के साथ मनाया गया, दोनों भूमि की परंपराओं को मिलाकर नए रिवाज बनाए गए जो उनकी एकता का प्रतीक थे।<img style='height: 250px; width: 350px;' src='festival.jpg'/>",
+		"एक बार बर्बाद हुई भूमि अब हरी-भरी खेतों, व्यस्त बाजारों, और खुशहाल समुदायों के साथ समृद्ध हो गई। अर्जुन, अब एक नायक के रूप में देखा जाता था, ने अपने जीवन को कर्णस्थान की शांति और समृद्धि सुनिश्चित करने के लिए समर्पित कर दिया। उन्होंने स्कूल और अनुसंधान केंद्र स्थापित किए, युवाओं को अतीत से सीखने और भविष्य के लिए नवाचार करने के लिए प्रोत्साहित किया।",
+		"सुनहरा पेड़ उनकी दृढ़ता और एकता का प्रतीक बना रहा, पुनर्वास और सामूहिक प्रयास की शक्ति की याद दिलाता हुआ। एक बार फिर, मानवता ने विजय प्राप्त की, और कर्णस्थान में शांति और समृद्धि फली-फूली। दो राजाओं की कहानी, उनके राज्यों की कहानी, और उस युवा लड़के की कहानी जिसने विभाजन को पाट दिया, एक किंवदंती बन गई, आने वाली पीढ़ियों को प्रेरित करते हुए।",
+		"और इस प्रकार, कर्णस्थान की भूमि में, साक्षम प्रताप और लालाजी प्रसाद को एक करने वाली भाईचारे और सामंजस्य की भावना पहले से भी मजबूत और स्थायी रूप में जीवित रही।<img style='height: 200px; width: 350px;' src='peace.jpg'/>",
+		"<img style='height: 250px; width: 350px;' src='town.jpg'/><h5>एक युद्ध के बाद एक नगर के पुनर्निर्माण की कहानी - कर्णस्थान का पुनर्जन्म,<br> लेखक - आदित्य सोनी</h5>"
+	];
+
+
+	function addPage(page, book) {
+		if (!book.turn('hasPage', page)) {
+			var content = storyContent[page - 1] || 'Content for page ' + page;
+			var element = $('<div />', {'class': 'page '+((page % 2 == 0) ? 'odd' : 'even'), 'id': 'page-'+page})
+					.html('<div class="data">' + content + '</div><div class="page-footer">Page ' + page + '</div>');
+			book.turn('addPage', element, page);
+		}
+	}
+
+	$(document).ready(function() {
+    // Existing turn.js initialization and setup
+    $('#book').turn({
+        acceleration: true,
+        pages: numberOfPages,
+        elevation: 50,
+        gradients: !$.isTouch,
+        when: {
+            turning: function(e, page, view) {
+                var book = $(this),
+                    currentPage = book.turn('page'),
+                    pages = book.turn('pages');
+
+                if (page == 1) {
+                    $('#prev-button').hide();
+                } else {
+                    $('#prev-button').show();
+                }
+
+                if (page == pages) {
+                    $('#next-button').hide();
+                } else {
+                    $('#next-button').show();
+                }
+
+                $('#page-number').val(page);
+            },
+            turned: function(e, page, view) {
+                $('#page-number').val(page);
+                var book = $(this);
+                $('#prev-button').toggle(page != 1);
+                $('#next-button').toggle(page != book.turn('pages'));
+            }
+        }
+    });
+
+    for (var page = 1; page <= numberOfPages; page++) {
+        addPage(page, $('#book'));
+    }
+
+    $('#number-pages').html(numberOfPages);
+
+    $('#page-number').keydown(function(e) {
+        if (e.keyCode == 13) {
+            $('#book').turn('page', $('#page-number').val());
+        }
+    });
+
+    $('#prev-button').click(function() {
+        $('#book').turn('previous');
+        document.getElementById('turn-back-sound').play();
+    });
+
+    $('#next-button').click(function() {
+        $('#book').turn('next');
+        document.getElementById('turn-front-sound').play();
+    });
+
+    document.getElementById('prev-button').style.display = 'none';
+
+    // Add event listener for the "Read the Text" button
+    $('#read-button').click(function() {
+        var currentPage = $('#book').turn('page');
+        playAudioForPage(currentPage);
+    });
+
+    function playAudioForPage(page) {
+        var audio = new Audio(page + '.mp3');
+        audio.play();
+    }
+});
+
+
+</script>
+</body>
+</html>
